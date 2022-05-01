@@ -5,8 +5,9 @@ import express from 'express'
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolvers/post";
+import { VerseResolver } from "./resolvers/verse";
 
-console.log("Hello World; source, and updates");
+console.log("-[] Add an extra entity, resolvers, CRUD framework");
 
 const main = async () => {
     const orm = await MikroORM.init()
@@ -15,7 +16,7 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [PostResolver],
+            resolvers: [PostResolver, VerseResolver],
             validate: false
         }),
         context: () => ({ em: orm.em })
@@ -27,12 +28,6 @@ const main = async () => {
     app.listen(4000, () => {
         console.log("Server started on localhost:4000")
     })
-
-    // const post = orm.em.create(Post, {title:'First Post'});
-    // await orm.em.persistAndFlush(post) 
-    //await orm.em.nativeInsert(Post, {title: 'my first post 2'}) 
-    // const posts = await orm.em.find(Post, {})
-    // console.log("Posts: ", posts)
 }
 
 
