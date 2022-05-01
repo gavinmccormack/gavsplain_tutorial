@@ -1,0 +1,49 @@
+#Gavsplained
+
+
+# Installation
+
+
+
+## Non-automated
+
+- [ ] PostgreSQL Database
+    ``` 
+    sudo apt install postgresql
+    sudo -u postgres createuser -s $(whoami); createdb $(whoami)
+    createdb gavsplain
+    ```
+    db user: gavin/devpass
+
+    https://zvado.herokuapp.com/blog/details/sRgvE97vGjGL8uM6WQrI
+
+    -[] Enter postgres IE with `psql` and run `\password`
+    - Alternative fixes involve changing the method in pg_hba.conf
+    - `ALTER ROLE gavin WITH SUPERUSER;`
+
+
+- [ ] Migrations 
+      `npx mikro-orm migration:create --initial`
+      `npx mikro-orm migration:up`
+      Ran into a bug here where the example code automatically 
+      typecast two date fields to json, and threw a DriverError
+      on incorrect types. Migrations also went poorly because 
+      jsonb was not castable to date in the migration. 
+
+      I could also have written the table drop into a fresh migration file.
+
+      Or 
+      ```
+      npx mikro-orm migration:fresh    # Drop the database and migrate up to the latest
+      ```
+
+
+## Notes
+
+types-graphql and graphql are different packages with similarly named functions
+
+localhost:4000/graphql : graphql playground
+
+https://www.youtube.com/watch?v=I6ypD7qv3Z8
+48:00 : Set up graphql. Poked in the dev panel. Going to do some
+CRUD operations.
