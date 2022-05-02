@@ -1,4 +1,4 @@
-#Gavsplained
+# Gavsplained
 
 B.A Example Project of Node/Express/Apollo/Postgresql/Typescript/Typegraphql/Mikro-Orm/Dribbly/Brain/Words/have/lost/all/meaning
 
@@ -15,7 +15,7 @@ This readme notes just a few things that would have been helpful to know the fir
 
     https://zvado.herokuapp.com/blog/details/sRgvE97vGjGL8uM6WQrI
 
-    -[] Enter postgres IE with `psql` and run `\password`
+    -[ ] Enter postgres IE with `psql` and run `\password`
     - Alternative fixes involve changing the method in pg_hba.conf
     - `ALTER ROLE gavin WITH SUPERUSER;`
 
@@ -23,6 +23,7 @@ This readme notes just a few things that would have been helpful to know the fir
 - [ ] Migrations 
       `npx mikro-orm migration:create --initial`
       `npx mikro-orm migration:up`
+      
       Ran into a bug here where the example code automatically 
       typecast two date fields to json, and threw a DriverError
       on incorrect types. Migrations also went poorly because 
