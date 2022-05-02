@@ -1,4 +1,4 @@
-import { Entity, PrimaryKey } from "@mikro-orm/core";
+import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, Int, ObjectType } from "type-graphql";
 
 @ObjectType()
@@ -9,10 +9,12 @@ export class VerseContent {
     id!: number
 
     @Field(() => String)
-    bodyContent: String
+    @Property()
+    bodyContent!: String
 
     @Field(() => String)
-    title: String
+    @Property()
+    title!: String
 }
 
 // Relevant docs
