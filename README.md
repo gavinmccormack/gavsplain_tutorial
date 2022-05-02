@@ -1,11 +1,9 @@
 #Gavsplained
 
+B.A Example Project of Node/Express/Apollo/Postgresql/Typescript/Typegraphql/Mikro-Orm/Dribbly/Brain/Words/have/lost/all/meaning
 
+This readme notes just a few things that would have been helpful to know the first time.
 # Installation
-
-
-
-## Non-automated
 
 - [ ] PostgreSQL Database
     ``` 
@@ -43,7 +41,3 @@
 types-graphql and graphql are different packages with similarly named functions
 
 localhost:4000/graphql : graphql playground
-
-https://www.youtube.com/watch?v=I6ypD7qv3Z8
-48:00 : Set up graphql. Poked in the dev panel. Going to do some
-CRUD operations.
