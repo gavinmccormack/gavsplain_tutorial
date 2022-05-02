@@ -5,7 +5,7 @@ import { Arg, Ctx, Int, Mutation, Query, Resolver } from "type-graphql";
 @Resolver()
 export class VerseResolver{
     @Query(() => [VerseContent])
-    getAllVerses(
+    getAllVerses( // NB: Development only. Would cordon this off
         @Ctx() {em}: MyContext
     ) { // What return type goes here?
         return em.find(VerseContent, { })
