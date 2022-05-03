@@ -11,6 +11,7 @@ This readme notes just a few things that would have been helpful to know the fir
     sudo -u postgres createuser -s $(whoami); createdb $(whoami)
     createdb gavsplain
     ```
+    ctl postgresql.service
     db user: gavin/devpass
 
     https://zvado.herokuapp.com/blog/details/sRgvE97vGjGL8uM6WQrI

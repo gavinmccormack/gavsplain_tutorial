@@ -6,7 +6,6 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolvers/post";
 import { VerseResolver } from "./resolvers/verse";
-import { VerseContent } from "./entities/VerseContent";
 
 console.log("-[] Add an extra entity, resolvers, CRUD framework");
 
