@@ -6,6 +6,7 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolvers/post";
 import { VerseResolver } from "./resolvers/verse";
+import { UserResolver } from "./resolvers/user";
 
 console.log("-[] Add an extra entity, resolvers, CRUD framework");
 
@@ -16,7 +17,7 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [PostResolver, VerseResolver],
+            resolvers: [PostResolver, VerseResolver, UserResolver],
             validate: false
         }),
         context: () => ({ em: orm.em })
