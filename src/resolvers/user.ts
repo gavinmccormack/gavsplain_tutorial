@@ -55,7 +55,11 @@ export class UserResolver {
         }
         const hashedPassword = await argon.hash(options.password)
         const user = em.create(User, {username: options.username, password: hashedPassword})
-        await em.persistAndFlush(user)
+        try {
+            await em.persistAndFlush(user)
+        } catch {
+            return { errors: createFieldError('username', 'Username already exists') }
+        }
         return {user: user}
     }
 
