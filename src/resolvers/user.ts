@@ -57,10 +57,12 @@ export class UserResolver {
         const user = em.create(User, {username: options.username, password: hashedPassword})
         try {
             await em.persistAndFlush(user)
-        } catch {
-            return { errors: createFieldError('username', 'Username already exists') }
+        } catch(err) {
+            if (err.code === '23505') {
+                return { errors: createFieldError('username', 'Username already exists') }
+            }
         }
-        return {user: user}
+        return {user}
     }
 
     @Mutation(() => UserResponse)
@@ -81,6 +83,6 @@ export class UserResolver {
             }
         }
 
-        return {user: user}
+        return {user}
     }    
 }
