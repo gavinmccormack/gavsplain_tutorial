@@ -38,6 +38,7 @@ function createFieldError(field: string, message: string): [FieldError]{
 
 @Resolver()
 export class UserResolver {
+    // If this wasn't a demo project, maybe look at Passport, Auth0
     @Mutation(() => UserResponse)
     async register(
         @Arg('options') options: UsernamePasswordInput,
@@ -68,7 +69,7 @@ export class UserResolver {
     @Mutation(() => UserResponse)
     async login(
         @Arg('options') options: UsernamePasswordInput,
-        @Ctx() {em}: MyContext
+        @Ctx() {em, req}: MyContext
     ) {
         const user = await em.findOne(User, {username: options.username})
         if (!user) {
@@ -77,12 +78,15 @@ export class UserResolver {
             }
         }
         const valid = await argon.verify(user.password, options.password)
+        // Note: The salt is stored alongside the database hashed password.
+        // Encoded hash is stored in PHC format.
         if (!valid) {
             return {
                 errors: createFieldError('password', 'Incorrect Password')
             }
         }
-
+        req.session.user = user.id
         return {user}
     }    
 }
+
