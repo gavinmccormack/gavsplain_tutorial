@@ -24,7 +24,7 @@ const main = async () => {
 
     const RedisStore = connectRedis(session)
     // NB: Legacy mode makes this work. 
-    // What is Legacy mode.
+    // - [ ] What is Legacy mode?
     const redisClient = await redis.createClient({ legacyMode: true})
     await redisClient.connect().catch(console.error)
 
@@ -48,12 +48,10 @@ const main = async () => {
                 sameSite: 'lax',
             },
             saveUninitialized: false, // NB: Check
-            secret: "Wooooooooooooooooo", // NB: env var 
+            secret: "Wooooooooooooooooo", // NB: env var
+            resave: false, 
         })   
     )
-
-    // "Any"ing the options because it's less dumb than writing
-    // twisty factory functions to make it seem like typescript works
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({

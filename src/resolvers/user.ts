@@ -1,6 +1,6 @@
 import { MyContext } from "src/types";
 import { User } from "../entities/User"
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Resolver } from "type-graphql";
+import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import argon from "argon2"
 
 @InputType()
@@ -85,9 +85,22 @@ export class UserResolver {
                 errors: createFieldError('password', 'Incorrect Password')
             }
         }
-        console.log("Request:", req)
-        req.session.user = user.id
+
+        req.session.userId = user.id
         return {user}
     }    
+
+    @Query(() => User, { nullable: true })
+    me(
+        @Ctx() { req, em }: MyContext
+    ) {
+        // Not logged in
+        const sessionUser = req.session.userId
+        if (!sessionUser) {
+            return null
+        }
+        const user = em.findOne(User, { id: sessionUser })
+        return user
+    }
 }
 
