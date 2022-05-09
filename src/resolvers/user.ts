@@ -42,7 +42,7 @@ export class UserResolver {
     @Mutation(() => UserResponse)
     async register(
         @Arg('options') options: UsernamePasswordInput,
-        @Ctx() {em}: MyContext
+        @Ctx() {em, req}: MyContext
     ): Promise<UserResponse> {
         if (options.username.length <= 2) {
             return { 
@@ -63,6 +63,7 @@ export class UserResolver {
                 return { errors: createFieldError('username', 'Username already exists') }
             }
         }
+        req.session.userId = user.id
         return {user}
     }
 
@@ -86,6 +87,8 @@ export class UserResolver {
             }
         }
 
+        // NB: Secure flag being misconfigured would result in no
+        // saves, and just a plain cookie object with 'options' 
         req.session.userId = user.id
         return {user}
     }    
