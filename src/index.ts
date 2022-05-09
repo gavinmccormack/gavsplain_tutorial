@@ -36,6 +36,8 @@ const main = async () => {
         app.set('trust proxy', 1)
     }
     app.use( // NB: Client has TTL and 'touch' options
+        // express-session provides signed session ID to user
+        // uses the secret to sign and unsign IDs
         session({
             name: 'gavsplain.sid',
             store: new RedisStore(<any>{ client: redisClient , options: {
