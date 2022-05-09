@@ -23,9 +23,18 @@ const main = async () => {
 
 
     const RedisStore = connectRedis(session)
-    const redisClient = await redis.createClient()
+    // NB: Legacy mode makes this work. 
+    // What is Legacy mode.
+    const redisClient = await redis.createClient({ legacyMode: true})
+    await redisClient.connect().catch(console.error)
 
-
+    // NB: Cookie Parser middleware not needed
+    // Module directly reads and writes cookies
+    // onto req/ res
+    if (__prod__) {
+        // Session cookie setting
+        app.set('trust proxy', 1)
+    }
     app.use( // NB: Client has TTL and 'touch' options
         session({
             name: 'gavsplain.sid',
@@ -40,9 +49,9 @@ const main = async () => {
             },
             saveUninitialized: false, // NB: Check
             secret: "Wooooooooooooooooo", // NB: env var 
-            resave: false,
         })   
     )
+
     // "Any"ing the options because it's less dumb than writing
     // twisty factory functions to make it seem like typescript works
 

@@ -86,7 +86,7 @@ export class UserResolver {
             }
         }
         console.log("Request:", req)
-        //req.session.user = user.id
+        req.session.user = user.id
         return {user}
     }    
 }
