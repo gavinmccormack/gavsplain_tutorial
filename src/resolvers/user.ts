@@ -85,7 +85,8 @@ export class UserResolver {
                 errors: createFieldError('password', 'Incorrect Password')
             }
         }
-        req.session.user = user.id
+        console.log("Request:", req)
+        //req.session.user = user.id
         return {user}
     }    
 }

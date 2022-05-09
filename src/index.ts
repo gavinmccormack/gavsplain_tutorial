@@ -11,6 +11,9 @@ import * as redis from "redis"
 // NB: Diff between import * as, and normal imp
 import session from "express-session"
 import connectRedis from 'connect-redis'
+// NB: Playground deprecated in favour of sandbox. This plugin re-enables
+// it. Running requests through apollo domain is a hassle for security.
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
 
 const main = async () => {
@@ -48,11 +51,17 @@ const main = async () => {
             resolvers: [PostResolver, VerseResolver, UserResolver],
             validate: false
         }),
+        plugins: [ ApolloServerPluginLandingPageGraphQLPlayground() ],
         context: ({req, res}) => ({ em: orm.em, req, res })
     })
 
+    const corsOptions = {
+        origin: 'http://localhost:3000',
+        credentials: true
+    }
+
     await apolloServer.start() // NB: Check
-    apolloServer.applyMiddleware({app})
+    apolloServer.applyMiddleware({app, cors: corsOptions, path: "/graphql"})
 
     app.listen(4000, () => {
         console.log("Server started on localhost:4000")
